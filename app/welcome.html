@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+</head>
+<body>
+
+<div id="welcome-message">
+  <h2>你好</h2>
+  <div id="user-data"></div>
+  <button onclick="clearUserData()">清除資料</button>
+</div>
+
+<script>
+  // 讀取 localStorage 中的資料
+  var leaveData = JSON.parse(localStorage.getItem('leaveData')) || [];
+
+  // 顯示資料
+  if (leaveData.length > 0) {
+    var userDataDiv = document.getElementById('user-data');
+    for (var i = 0; i < leaveData.length; i++) {
+      userDataDiv.innerHTML += "<p>姓名：" + leaveData[i].name + "</p><p>日期：" + leaveData[i].date +
+        "</p><p>原因：" + leaveData[i].reason + "</p><hr>";
+    }
+  }
+
+  function clearUserData() {
+    // 清除 localStorage 中的資料
+    localStorage.removeItem('leaveData');
+
+    // 清除資料
+    document.getElementById('user-data').innerHTML = "";
+  }
+</script>
+
+</body>
+</html>

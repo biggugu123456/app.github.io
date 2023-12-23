@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #login-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      position: relative; /* 為進度條的絕對定位做準備 */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #recaptcha-btn {
+      background-color: #4285f4;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #progress-bar {
+      height: 4px;
+      background-color: #4caf50;
+      width: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: width 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<form id="login-form">
+  <h2 style="text-align: center;">登入</h2>
+  <label for="username">帳號：</label>
+  <input type="text" id="username" name="username" required>
+
+  <label for="password">密碼：</label>
+  <input type="password" id="password" name="password" required>
+
+  <button type="button" onclick="login()">登入</button>
+
+  <!-- 添加 "我不是機器人" 按鈕 -->
+  <button type="button" id="recaptcha-btn" onclick="recaptcha()">我不是機器人</button>
+
+  <!-- 進度條 -->
+  <div id="progress-bar"></div>
+</form>
+
+<script>
+  function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var recaptchaChecked = document.getElementById("recaptcha-btn").getAttribute("data-checked");
+
+    if (recaptchaChecked !== "true") {
+      alert("請先點擊 '我不是機器人' 驗證");
+      return;
+    }
+
+    // 在實際情境中，這裡應該要有一個真實的登入驗證過程
+
+    if (username === "a" && password === "a") {
+      // 登入成功，導向到 index.html
+      window.location.href = "index.html";
+    } else {
+      alert("登入失敗，請檢查帳號和密碼");
+    }
+  }
+
+  function recaptcha() {
+    // 模擬 "我不是機器人" 驗證，這裡可以添加你的驗證邏輯
+    showProgressBar();
+
+    setTimeout(function () {
+      hideProgressBar();
+      alert("驗證成功！");
+      document.getElementById("recaptcha-btn").setAttribute("data-checked", "true");
+    }, 2000);
+  }
+
+  function showProgressBar() {
+    document.getElementById("progress-bar").style.width = "100%";
+  }
+
+  function hideProgressBar() {
+    document.getElementById("progress-bar").style.width = "0";
+  }
+</script>
+
+</body>
+</html>
