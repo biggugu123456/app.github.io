@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>雙人聊天</title>
+  <style>
+    #chat-container {
+      width: 300px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      height: 300px;
+      overflow-y: scroll;
+    }
+    #message-input {
+      width: calc(100% - 20px);
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="chat-messages"></div>
+  </div>
+  <input type="text" id="message-input" placeholder="輸入訊息...">
+  <button onclick="sendMessage()">送出</button>
+
+  <script>
+    function sendMessage() {
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+      if (message.trim() === '') {
+        return;
+      }
+      
+      displayMessage('You', message);
+      messageInput.value = '';
+      // 模擬回覆
+      setTimeout(() => {
+        displayMessage('Friend', '回覆：這是一個範例訊息！');
+      }, 1000);
+    }
+
+    function displayMessage(sender, message) {
+      const chatMessages = document.getElementById('chat-messages');
+      const messageElement = document.createElement('div');
+      messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
