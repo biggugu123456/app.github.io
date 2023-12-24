@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>內置相機</title>
+</head>
+<body>
+  <video id="camera" width="640" height="480" autoplay></video>
+  
+  <script>
+    const video = document.getElementById('camera');
+
+    // 檢查瀏覽器是否支援 getUserMedia 方法
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      const constraints = {
+        video: {
+          facingMode: 'user' // 使用預設的（前置或後置）相機
+        }
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          video.srcObject = stream;
+          video.play();
+        })
+        .catch(function(error) {
+          console.error('無法取得相機影像: ', error);
+        });
+    } else {
+      console.error('瀏覽器不支援 getUserMedia 方法');
+    }
+  </script>
+</body>
+</html>
