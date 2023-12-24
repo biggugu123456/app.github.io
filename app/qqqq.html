@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>訂單確認</title>
+  <style>
+    /* 在這裡加入你的 CSS 來美化頁面 */
+    /* （這裡是原來的 CSS，沒有變化） */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>您的訂單詳情</h1>
+    <p>以下是您所訂購的披薩詳情：</p>
+  </header>
+  <div class="container">
+    <div id="orderDetails">
+      <!-- 這裡是用來顯示訂單詳情的區域 -->
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2023 披薩店. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // 解析 URL 中的查詢參數，獲取訂單資訊
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    
+    // 獲取訂單資訊並顯示在頁面上
+    const orderDetails = document.getElementById('orderDetails');
+    const pizzaType = urlParams.get('pizza-type');
+    const size = urlParams.get('size');
+    const quantity = urlParams.get('quantity');
+    const city = urlParams.get('city');
+    const district = urlParams.get('district');
+    const road = urlParams.get('road');
+    const lane = urlParams.get('lane');
+    const number = urlParams.get('number');
+    const floor = urlParams.get('floor');
+
+    // 將訂單詳情顯示在頁面上
+    orderDetails.innerHTML = `
+      <p>披薩種類：${pizzaType}</p>
+      <p>尺寸：${size}</p>
+      <p>數量：${quantity}</p>
+      <p>送貨地址：${city}${district}${road}${lane}${number}${floor}</p>
+    `;
+  </script>
+</body>
+</html>

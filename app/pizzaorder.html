@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>披薩訂購</title>
+  <style>
+    /* 在這裡加入你的 CSS 來美化網站 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #444;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0 20px;
+    }
+    nav a:hover {
+      color: #ff9800;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .menu-item {
+      width: 30%;
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>歡迎訂購披薩</h1>
+    <p>填寫以下信息完成訂購：</p>
+  </header>
+  <div class="container">
+    <form id="orderForm" onsubmit="return validateForm()">
+        <label for="pizza-type">披薩種類：</label>
+        <select id="pizza-type" name="pizza-type">
+          <option value="classic">經典披薩</option>
+          <option value="italian">意大利風情</option>
+          <option value="vegetable">蔬菜特搭</option>
+        </select><br><br>
+  
+        <label for="size">尺寸：</label>
+        <input type="radio" id="small" name="size" value="small">
+        <label for="small">小</label>
+        <input type="radio" id="medium" name="size" value="medium">
+        <label for="medium">中</label>
+        <input type="radio" id="large" name="size" value="large">
+        <label for="large">大</label><br><br>
+  
+        <label for="quantity">數量：</label>
+        <input type="number" id="quantity" name="quantity" min="1" max="10"><br><br>
+  
+        <label for="address">送貨地址：</label><br><br>
+        
+        <select id="city" name="city">
+          <option value="A">市A</option>
+          <option value="B">市B</option>
+          <option value="C">市C</option>
+        </select>
+  
+        <select id="district" name="district">
+          <option value="D">區D</option>
+          <option value="E">區E</option>
+          <option value="F">區F</option>
+        </select>
+  
+        <select id="road" name="road">
+          <option value="G">路G</option>
+          <option value="H">路H</option>
+          <option value="I">路I</option>
+        </select>
+  
+        <select id="lane" name="lane">
+          <option value="1">巷1</option>
+          <option value="2">巷2</option>
+          <option value="3">巷3</option>
+        </select>
+  
+        <select id="number" name="number">
+          <option value="4">號4</option>
+          <option value="5">號5</option>
+          <option value="6">號6</option>
+        </select>
+  
+        <select id="floor" name="floor">
+          <option value="7">樓7</option>
+          <option value="8">樓8</option>
+          <option value="9">樓9</option>
+        </select><br><br>
+      <input type="submit" value="提交訂單">
+    </form>
+
+    <div id="successMessage" class="success" style="display: none;">訂購成功！</div>
+  </div>
+  <footer>
+    <p>&copy; 2023 披薩店. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function validateForm() {
+      // 在這裡進行表單有效性檢查
+      // 例如：
+      var pizzaType = document.getElementById("pizza-type").value;
+      var size = document.querySelector('input[name="size"]:checked');
+      var quantity = document.getElementById("quantity").value;
+      var city = document.getElementById("city").value;
+      var district = document.getElementById("district").value;
+      var road = document.getElementById("road").value;
+      var lane = document.getElementById("lane").value;
+      var number = document.getElementById("number").value;
+      var floor = document.getElementById("floor").value;
+
+      if (!pizzaType || !size || !quantity || !city || !district || !road || !lane || !number || !floor) {
+        alert("請完整填寫表單");
+        return false;
+      }
+      
+      // 在這裡替換為其他有效性檢查的邏輯
+
+      showSuccessMessage(); // 如果表單有效，顯示訂單成功信息
+      return false; // 阻止表單提交
+    }
+
+// 獲取訂單資訊
+var pizzaType = document.getElementById("pizza-type").value;
+    var size = document.querySelector('input[name="size"]:checked').value;
+    var quantity = document.getElementById("quantity").value;
+    var city = document.getElementById("city").value;
+    var district = document.getElementById("district").value;
+    var road = document.getElementById("road").value;
+    var lane = document.getElementById("lane").value;
+    var number = document.getElementById("number").value;
+    var floor = document.getElementById("floor").value;
+
+    // 創建訂單物件
+    var order = {
+      pizzaType: pizzaType,
+      size: size,
+      quantity: quantity,
+      address: city + district + road + lane + number + floor
+    };
+
+    // 發送訂單到後端
+    fetch('YOUR_BACKEND_ENDPOINT', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('訂單已發送到後端', data);
+      showSuccessMessage(); // 如果訂單成功提交，顯示訂單成功信息
+    })
+    .catch(error => {
+      console.error('發生錯誤:', error);
+    });
+  
+    function showSuccessMessage() {
+      document.getElementById("successMessage").style.display = "block"; // 顯示成功信息
+      setTimeout(function() {
+        goToHomePage();
+      }, 5000); // 5秒後執行跳轉到首頁
+    }
+
+    function goToHomePage() {
+      window.location.href = "pizzaindex.html"; // 將用戶導向到首頁
+    }
+  </script>
+</body>
+</html>
