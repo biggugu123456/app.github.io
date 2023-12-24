@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>內置相機</title>
+  <title>手機相機</title>
 </head>
 <body>
-  <video id="camera" width="640" height="480" autoplay></video>
+  <video id="camera" width="100%" height="auto" autoplay></video>
   
   <script>
     const video = document.getElementById('camera');
@@ -13,7 +13,7 @@
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const constraints = {
         video: {
-          facingMode: 'user' // 使用預設的（前置或後置）相機
+          facingMode: 'environment' // 使用手機的後置相機
         }
       };
 
